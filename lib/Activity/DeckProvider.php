@@ -39,8 +39,6 @@ use OCA\Deck\Service\CardService;
 
 class DeckProvider implements IProvider {
 
-	/** @var string */
-	private $userId;
 	/** @var IURLGenerator */
 	private $urlGenerator;
 	/** @var ActivityManager */
@@ -56,8 +54,7 @@ class DeckProvider implements IProvider {
 	/** @var CardService */
 	private $cardService;
 
-	public function __construct(IURLGenerator $urlGenerator, ActivityManager $activityManager, IUserManager $userManager, ICommentsManager $commentsManager, IFactory $l10n, IConfig $config, $userId, CardService $cardService) {
-		$this->userId = $userId;
+	public function __construct(IURLGenerator $urlGenerator, ActivityManager $activityManager, IUserManager $userManager, ICommentsManager $commentsManager, IFactory $l10n, IConfig $config, CardService $cardService) {
 		$this->urlGenerator = $urlGenerator;
 		$this->activityManager = $activityManager;
 		$this->commentsManager = $commentsManager;
@@ -86,7 +83,8 @@ class DeckProvider implements IProvider {
 
 		$subjectIdentifier = $event->getSubject();
 		$subjectParams = $event->getSubjectParameters();
-		$ownActivity = ($event->getAuthor() === $this->userId);
+
+		$ownActivity = ($event->getAuthor() === $this->activityManager->getCurrentUserId());
 
 		/**
 		 * Map stored parameter objects to rich string types

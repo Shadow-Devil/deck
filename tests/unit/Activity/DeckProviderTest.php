@@ -67,13 +67,14 @@ class DeckProviderTest extends TestCase {
 		$this->l10n = $this->createMock(IL10N::class);
 		$this->urlGenerator = $this->createMock(IURLGenerator::class);
 		$this->activityManager = $this->createMock(ActivityManager::class);
+		$this->activityManager->expects($this->any())->method('getCurrentUserId')->willReturn($this->userId);
 		$this->userManager = $this->createMock(IUserManager::class);
 		$this->commentsManager = $this->createMock(ICommentsManager::class);
 		$this->l10nFactory = $this->createMock(IFactory::class);
 		$this->config = $this->createMock(IConfig::class);
 		$this->config = $this->createMock(IConfig::class);
 		$this->cardService = $this->createMock(CardService::class);
-		$this->provider = new DeckProvider($this->urlGenerator, $this->activityManager, $this->userManager, $this->commentsManager, $this->l10nFactory, $this->config, $this->userId, $this->cardService);
+		$this->provider = new DeckProvider($this->urlGenerator, $this->activityManager, $this->userManager, $this->commentsManager, $this->l10nFactory, $this->config, $this->cardService);
 	}
 
 	private function mockEvent($objectType, $objectId, $objectName, $subject, $subjectParameters = []) {

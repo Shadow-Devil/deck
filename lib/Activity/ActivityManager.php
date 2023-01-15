@@ -554,4 +554,8 @@ class ActivityManager {
 			'board' => $board
 		];
 	}
+
+	public function getCurrentUserId() {
+		return $this->manager->getCurrentUserId();
+	}
 }
